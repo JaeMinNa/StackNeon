@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1383095101630893682}
   m_Layer: 0
   m_Name: NeonRedSquare
-  m_TagString: Red
+  m_TagString: Neon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,7 +100,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 09947448d406d4049adc2e157b740243, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -148,9 +148,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_Mass: 10
+  m_LinearDamping: 0.7
+  m_AngularDamping: 0.1
   m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: 09947448d406d4049adc2e157b740243, type: 2}
   m_IncludeLayers:
