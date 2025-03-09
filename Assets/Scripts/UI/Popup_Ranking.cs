@@ -30,8 +30,10 @@ public class Popup_Ranking : MonoBehaviour
     #region Button
     private void OnClick_Exit()
     {
+        SoundManager.Instance.StartSFX("Click");
+
         // 현재 실행 환경이 에디터이면 에디터 플레이모드 종료
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 
         // 현재 실행 환경이 에디터가 아니면 프로그램 종료
@@ -42,6 +44,7 @@ public class Popup_Ranking : MonoBehaviour
 
     private void OnClick_RePlay()
     {
+        SoundManager.Instance.StartSFX("Click");
         Time.timeScale = 1f;
         SceneManager.LoadScene("GameScene");
     }
@@ -49,6 +52,7 @@ public class Popup_Ranking : MonoBehaviour
     // 유저 데이터를 초기화
     private void OnClick_Delete()
     {
+        SoundManager.Instance.StartSFX("Click");
         PlayerPrefs.DeleteAll();
         OnClick_Exit();
     }

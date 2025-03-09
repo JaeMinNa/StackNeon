@@ -21,6 +21,11 @@ public class Popup_NickName : MonoBehaviour
 
     public void OnClick_Ok()
     {
+        if (Text_Name.text == string.Empty)
+            return;
+
+        SoundManager.Instance.StartSFX("Click");
+
         //User.NickName = Text_Name.text;
         PlayerPrefs.SetString("NickName", Text_Name.text);
         gameObject.SetActive(false);

@@ -46,14 +46,18 @@ public class GameController : MonoBehaviour
 
     private float m_LastCameraMoveHeight = 0;
     private Vector3 m_SpawnPosition;
-    private bool m_IsDragging = false;  // 네온을 드래그 중인지
-    private bool m_IsCameraMove = false;
+    private bool m_IsDragging = false;  // 네온을 드래그 중인
     private Vector3 m_Velocity = Vector3.zero;
 
     #region Get/Set
     public int GetSpawnedNeonCount()
     {
         return m_SpawnedNeons.Count;
+    }
+
+    public List<GameObject> GetSpawnedNeons()
+    {
+        return m_SpawnedNeons;
     }
 
     // 현재 떨어지고 있는 네온을 제외하고 가장 높이있는 네온의 Y값을 가져옴
@@ -222,5 +226,6 @@ public class GameController : MonoBehaviour
     {
         Time.timeScale = 0f;
         Obj_PopupRanking.SetActive(true);
+        SoundManager.Instance.StartSFX("GameOver");
     }
 }

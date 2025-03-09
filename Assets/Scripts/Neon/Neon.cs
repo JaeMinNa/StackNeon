@@ -113,5 +113,19 @@ public class Neon : MonoBehaviour
         {
             m_GameController.GameOver();
         }
+
+        // 제일 마지막에 생성된 네온이 네온이나 바닥과 충돌할 때
+        if (m_NeonNum == m_GameController.GetSpawnedNeonCount())
+        {
+            if (collision.transform.CompareTag("Neon") || collision.transform.CompareTag("Floor"))
+            {
+                int RandomValue = Random.Range(0, 2);
+
+                if(RandomValue == 0)
+                    SoundManager.Instance.StartSFX("Neon");
+                else
+                    SoundManager.Instance.StartSFX("Neon2");
+            }
+        }
     }
 }
