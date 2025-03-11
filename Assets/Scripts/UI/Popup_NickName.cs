@@ -8,9 +8,18 @@ public class Popup_NickName : MonoBehaviour
     [SerializeField] private TMP_Text Text_Name = null;
     [SerializeField] private TMP_InputField InputField;
 
+    private int m_UID = 0;
+
     private void Awake()
     {
         Btn_Ok.onClick.AddListener(OnClick_Ok);
+    }
+
+    private void Start()
+    {
+        int RandomValue = Random.Range(0, 100000000);
+        m_UID = RandomValue;
+        InputField.text = m_UID.ToString();
     }
 
     // 매개변수는 string만 사용 가능
@@ -26,8 +35,8 @@ public class Popup_NickName : MonoBehaviour
 
         SoundManager.Instance.StartSFX("Click");
 
-        //User.NickName = Text_Name.text;
         PlayerPrefs.SetString("NickName", Text_Name.text);
+        BackendManager.Instance.SignUp();
         gameObject.SetActive(false);
         Time.timeScale = 1f;
     }

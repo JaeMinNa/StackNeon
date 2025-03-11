@@ -2,5 +2,5 @@ using UnityEngine;
 
 public class User
 {
-    public static string NickName { get; set; } = string.Empty;
+    public static float BestScore { get; set; }
 }

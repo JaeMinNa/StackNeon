@@ -76,7 +76,7 @@ public class GameController : MonoBehaviour
         return PosY;
     }
 
-    private float GetScore()
+    public float GetScore()
     {
         float Score = (float)Math.Round(GetHighestNeonPosY() + 4f, 1);
         if (Score < 0) Score = 0;
@@ -96,6 +96,10 @@ public class GameController : MonoBehaviour
         // 닉네임이 없다면 닉네임 설정
         if (PlayerPrefs.GetString("NickName") == "")
             SetNickName();
+        else
+        {
+            BackendManager.Instance.Login();
+        }
 
         SpawnNeon();
     }

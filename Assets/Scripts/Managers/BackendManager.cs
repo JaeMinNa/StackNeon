@@ -68,6 +68,8 @@ public class BackendManager : MonoBehaviour
         if (bro.IsSuccess())
         {
             Debug.Log("데이터 추가를 성공했습니다");
+
+            Login();
         }
         else
         {
@@ -76,14 +78,40 @@ public class BackendManager : MonoBehaviour
     }
     #endregion
 
+    #region SignUp / Login
+    public void SignUp()
+    {
+        BackendReturnObject bro = Backend.BMember.CustomSignUp(PlayerPrefs.GetString("NickName"), "1234");
+        if (bro.IsSuccess())
+        {
+            Debug.Log("회원가입에 성공했습니다");
+
+            InsertData();
+        }
+    }
+
+    public void Login()
+    {
+        BackendReturnObject bro = Backend.BMember.CustomLogin(PlayerPrefs.GetString("NickName"), "1234");
+        if (bro.IsSuccess())
+        {
+            Debug.Log("로그인에 성공했습니다");
+        }
+        else
+        {
+            Debug.Log("로그인에 실패했습니다");
+        }
+    }
+    #endregion
+
     #region Load
     // 서버로부터 데이터를 불러와서 Parsing하는 함수
-    public void Load()
+    public bool Load()
     {
         if (!Backend.IsInitialized)
         {
             Debug.LogError("현재 서버와 연결이 끊겼습니다.");
-            return;
+            return false;
         }
 
         BackendReturnObject bro = Backend.GameData.GetMyData("UserData", new Where());
@@ -94,10 +122,13 @@ public class BackendManager : MonoBehaviour
             ParsingData(bro.GetReturnValuetoJSON()["rows"][0]);
             // 서버에서 불러온 Json 데이터를 파싱
             // Json 데이터 중, rows의 값만 가져옴
+
+            return true;
         }
         else
         {
             Debug.Log("데이터 로드 실패했습니다.");
+            return false;
         }
     }
 
@@ -106,6 +137,7 @@ public class BackendManager : MonoBehaviour
         // 파싱된 데이터를 GameData로 불러오기
         //GameManager.I.DataManager.GameData.UserName = json["UserName"][0].ToString();
         //GameManager.I.DataManager.GameData.RankPoint = int.Parse(json["RankPoint"][0].ToString());
+        User.BestScore = float.Parse(json["RankScore"][0].ToString());
 
         // 랭킹 데이터에서 복수 데이터의 추가 항목 사용 시
         //string[] extraData = json["extraData"].ToString().Split("|");
