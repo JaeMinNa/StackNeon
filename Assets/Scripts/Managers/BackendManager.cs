@@ -4,10 +4,14 @@ using UnityEngine;
 using BackEnd;
 using LitJson;
 using DG.Tweening.Core.Easing;
+using TMPro;
 
 public class BackendManager : MonoBehaviour
 {
     public static BackendManager Instance;
+
+    public TMP_Text test;
+
 
     void Awake()
     {
@@ -35,10 +39,12 @@ public class BackendManager : MonoBehaviour
         if (bro.IsSuccess())
         {
             Debug.Log("뒤끝 서버 연동 성공 : " + bro); // 성공일 경우 statusCode 204 Success
+            test.text += "뒤끝 서버 연동 성공 : " + bro;
         }
         else
         {
             Debug.LogError("뒤끝 서버 연동 실패 : " + bro); // 실패일 경우 statusCode 400대 에러 발생
+            test.text += "뒤끝 서버 연동 실패 : " + bro;
         }
     }
 
@@ -68,12 +74,13 @@ public class BackendManager : MonoBehaviour
         if (bro.IsSuccess())
         {
             Debug.Log("데이터 추가를 성공했습니다");
+            test.text += "데이터 추가를 성공했습니다";
 
             Login();
         }
         else
         {
-            Debug.Log("데이터 추가를 실패했습니다");
+            test.text += "데이터 추가를 실패했습니다";
         }
     }
     #endregion
@@ -85,8 +92,13 @@ public class BackendManager : MonoBehaviour
         if (bro.IsSuccess())
         {
             Debug.Log("회원가입에 성공했습니다");
+            test.text += "회원가입에 성공했습니다";
 
             InsertData();
+        }
+        else
+        {
+            test.text += "회원가입에 실패했습니다 " + bro;
         }
     }
 
@@ -96,10 +108,12 @@ public class BackendManager : MonoBehaviour
         if (bro.IsSuccess())
         {
             Debug.Log("로그인에 성공했습니다");
+            test.text += "로그인에 성공했습니다";
         }
         else
         {
             Debug.Log("로그인에 실패했습니다");
+            test.text += "로그인에 실패했습니다";
         }
     }
     #endregion
@@ -111,6 +125,7 @@ public class BackendManager : MonoBehaviour
         if (!Backend.IsInitialized)
         {
             Debug.LogError("현재 서버와 연결이 끊겼습니다.");
+            test.text += "현재 서버와 연결이 끊겼습니다.";
             return false;
         }
 
@@ -119,6 +134,7 @@ public class BackendManager : MonoBehaviour
         if (bro.IsSuccess())
         {
             Debug.Log("데이터 로드 성공했습니다.");
+            test.text += "데이터 로드 성공했습니다.";
             ParsingData(bro.GetReturnValuetoJSON()["rows"][0]);
             // 서버에서 불러온 Json 데이터를 파싱
             // Json 데이터 중, rows의 값만 가져옴
@@ -128,6 +144,7 @@ public class BackendManager : MonoBehaviour
         else
         {
             Debug.Log("데이터 로드 실패했습니다.");
+            test.text += "데이터 로드 실패했습니다.";
             return false;
         }
     }

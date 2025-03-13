@@ -49,9 +49,9 @@ public class Popup_Ranking : MonoBehaviour
 
         bool IsSuccess = BackendManager.Instance.Load();
 
-        if(IsSuccess)
+        if (IsSuccess)
         {
-            if(User.BestScore < m_GameController.GetScore())
+            if (User.BestScore < m_GameController.GetScore())
             {
                 UpdateRank(m_GameController.GetScore());
             }
