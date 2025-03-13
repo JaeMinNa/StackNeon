@@ -8,6 +8,7 @@ using TMPro;
 public class Popup_Ranking : MonoBehaviour
 {
     [Header("Rank")]
+    [SerializeField] private TMP_Text Text_NowScore = null;
     [SerializeField] private TMP_Text Text_MyRank = null;
     [SerializeField] private TMP_Text Text_MyRankScore = null;
     [SerializeField] private TMP_Text Text_MyNickName = null;
@@ -28,7 +29,7 @@ public class Popup_Ranking : MonoBehaviour
 
     // 복사한 UUID 
     private const string RANK_UUID = "01958586-730a-7c37-8683-034a79987acf";
-    private const int MAX_RANK_LIST = 6;
+    private const int MAX_RANK_LIST = 10;
 
     #region Unity Method
     private void Awake()
@@ -42,6 +43,10 @@ public class Popup_Ranking : MonoBehaviour
 
     private void Start()
     {
+        AdmobManager.Instance.HideAd();
+
+        Text_NowScore.text = "NOW : " + m_GameController.GetScore() + " M";
+
         bool IsSuccess = BackendManager.Instance.Load();
 
         if(IsSuccess)
@@ -56,6 +61,7 @@ public class Popup_Ranking : MonoBehaviour
         }
         else
         {
+            SetMyRankMedal(0);
             Text_MyRank.text = "-";
             Text_MyRankScore.text = "-";
             Text_MyNickName.text = "-";
@@ -325,8 +331,23 @@ public class Popup_Ranking : MonoBehaviour
     private void OnClick_RePlay()
     {
         SoundManager.Instance.StartSFX("Click");
+
+        int ReplayCount = PlayerPrefs.GetInt("ReplayCount", 0);
+        ReplayCount++;
+
         Time.timeScale = 1f;
-        SceneManager.LoadScene("GameScene");
+
+        if(ReplayCount >= 2)
+        {
+            AdmobManager.Instance.LoadRewardedAd();
+            ReplayCount = 0;
+        }
+        else
+        {
+            SceneManager.LoadScene("GameScene");
+        }
+
+        PlayerPrefs.SetInt("ReplayCount", ReplayCount);
     }
 
     // 유저 데이터를 초기화

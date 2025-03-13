@@ -101,6 +101,9 @@ public class GameController : MonoBehaviour
             BackendManager.Instance.Login();
         }
 
+        // ¹è³Ê ±¤°í
+        AdmobManager.Instance.ShowAd();
+
         SpawnNeon();
     }
 
